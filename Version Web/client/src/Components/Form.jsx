@@ -26,6 +26,8 @@ const Form = (props) => {
 
     setFilm1("");
     setFilm2("");
+
+    props.submit(vFilm1, vFilm2);
   };
 
   return (

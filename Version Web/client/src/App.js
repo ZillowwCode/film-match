@@ -22,6 +22,11 @@ const useStyles = makeStyles({
 const App = () => {
   const classes = useStyles();
 
+  const handleFormSubmit = (film1, film2) => {
+    alert(film1);
+    alert(film2);
+  };
+
   return (
     <React.Fragment>
       <Container>
@@ -52,7 +57,7 @@ const App = () => {
         </div>
 
         <div id="form">
-          <Form />
+          <Form submit={handleFormSubmit} />
         </div>
 
         <div id="filmsList">
