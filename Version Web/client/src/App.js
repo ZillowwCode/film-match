@@ -2,6 +2,8 @@ import React from "react";
 import { Typography, Container, Divider } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
+import Form from "./Components/Form";
+
 const useStyles = makeStyles({
   title: {
     color: "#fff",
@@ -44,6 +46,10 @@ const App = () => {
           sx={{ marginTop: "40px", width: "950px" }}
           className={classes.divider}
         />
+      </div>
+
+      <div id="form">
+        <Form />
       </div>
     </Container>
   );

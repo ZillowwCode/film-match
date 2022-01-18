@@ -1,0 +1,19 @@
+.filmField {
+  height: 50px;
+  width: 100%;
+  background-color: #f6f7eb;
+  border: none;
+  border-radius: 20px;
+  transition-property: border;
+  transition-duration: 100ms;
+  font-size: 18px;
+  text-align: center;
+}
+
+.filmField:hover {
+  border: 2px solid #262730;
+}
+
+.filmField:focus {
+  border: 1px solid #262730;
+}
