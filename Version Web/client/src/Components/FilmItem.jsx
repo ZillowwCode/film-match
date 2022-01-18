@@ -9,7 +9,7 @@ import {
 
 const FilmItem = (props) => {
   return (
-    <Card elevation={3} sx={{ margin: "10px" }}>
+    <Card elevation={3}>
       <CardHeader
         sx={{
           backgroundColor: "#262730",
@@ -23,7 +23,7 @@ const FilmItem = (props) => {
           </Typography>
         }
       />
-      <CardMedia component="img" height="600rem" image={props.img} />
+      <CardMedia component="img" height="400rem" image={props.img} />
       <CardContent sx={{ backgroundColor: "#F6F7EB", color: "#262730" }}>
         <Typography variant="body2">{props.synopsis}</Typography>
       </CardContent>

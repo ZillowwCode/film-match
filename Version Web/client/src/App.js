@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Typography, Container, Divider, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import env from "react-dotenv";
 
 import Form from "./Components/Form";
 import Footer from "./Components/Footer";
@@ -54,7 +55,7 @@ const App = () => {
   ]);
 
   const handleFormSubmit = (film1, film2) => {
-    alert("Films recus !");
+    console.log(`${env.API_URL}/test`);
   };
 
   return (
@@ -91,10 +92,14 @@ const App = () => {
         </div>
 
         <div id="filmsList">
-          <Grid container sx={{ marginTop: "50px", marginBottom: "220px" }}>
+          <Grid
+            spacing={3}
+            container
+            sx={{ marginTop: "50px", marginBottom: "220px" }}
+          >
             {films.map((film) => {
               return (
-                <Grid xs={12} sm={6} md={4}>
+                <Grid key={film.title} item xs={12} sm={6} md={4}>
                   <FilmItem
                     title={film.title}
                     img={film.imgUrl}
