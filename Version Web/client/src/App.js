@@ -3,6 +3,7 @@ import { Typography, Container, Divider } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 import Form from "./Components/Form";
+import Footer from "./Components/Footer";
 
 const useStyles = makeStyles({
   title: {
@@ -21,37 +22,40 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <Container>
-      <div id="header">
-        <Typography
-          sx={{ fontSize: 144, marginTop: "100px" }}
-          className={classes.title}
-          variant="h1"
-          align="center"
-        >
-          FilmMatch
-        </Typography>
+    <React.Fragment>
+      <Container>
+        <div id="header">
+          <Typography
+            sx={{ fontSize: 144, marginTop: "50px" }}
+            className={classes.title}
+            variant="h1"
+            align="center"
+          >
+            FilmMatch
+          </Typography>
 
-        <Typography
-          className={classes.subTitle}
-          sx={{ fontSize: 64 }}
-          variant="h2"
-          align="center"
-        >
-          Compliqué de trouver un film à deux ? <br />
-          Nous avons la solution.
-        </Typography>
+          <Typography
+            className={classes.subTitle}
+            sx={{ fontSize: 64 }}
+            variant="h2"
+            align="center"
+          >
+            Compliqué de trouver un film à deux ? <br />
+            Nous avons la solution.
+          </Typography>
 
-        <Divider
-          sx={{ marginTop: "40px", width: "950px" }}
-          className={classes.divider}
-        />
-      </div>
+          <Divider
+            sx={{ marginTop: "40px", width: "950px" }}
+            className={classes.divider}
+          />
+        </div>
 
-      <div id="form">
-        <Form />
-      </div>
-    </Container>
+        <div id="form">
+          <Form />
+        </div>
+      </Container>
+      <Footer />
+    </React.Fragment>
   );
 };
 
