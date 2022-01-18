@@ -1,9 +1,10 @@
 import React from "react";
-import { Typography, Container, Divider } from "@mui/material";
+import { Typography, Container, Divider, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 import Form from "./Components/Form";
 import Footer from "./Components/Footer";
+import FilmItem from "./Components/FilmItem";
 
 const useStyles = makeStyles({
   title: {
@@ -53,7 +54,40 @@ const App = () => {
         <div id="form">
           <Form />
         </div>
+
+        <div id="filmsList">
+          <Grid
+            container
+            spacing={3}
+            sx={{ marginTop: "50px", marginBottom: "220px" }}
+          >
+            <Grid item xs={12} sm={6} md={4}>
+              <FilmItem />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <FilmItem />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <FilmItem />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <FilmItem />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <FilmItem />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <FilmItem />
+            </Grid>
+          </Grid>
+        </div>
       </Container>
+
       <Footer />
     </React.Fragment>
   );
