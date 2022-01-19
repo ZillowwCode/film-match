@@ -3,6 +3,7 @@ import { Typography, Container, Divider, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import env from "react-dotenv";
 import axios from "axios";
+import Masonry from "react-masonry-css";
 
 import Form from "./Components/Form";
 import Footer from "./Components/Footer";
@@ -47,6 +48,12 @@ const App = () => {
     setRecs2(recFilm2);
   };
 
+  const layoutBreakpoints = {
+    default: 3,
+    1100: 2,
+    700: 1,
+  };
+
   return (
     <React.Fragment>
       <Container>
@@ -81,14 +88,14 @@ const App = () => {
         </div>
 
         <div id="filmsList">
-          <Grid
-            spacing={3}
-            container
-            sx={{ marginTop: "50px", marginBottom: "220px" }}
+          <Masonry
+            breakpointCols={layoutBreakpoints}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
           >
             {recs1.map((rec) => {
               return (
-                <Grid key={rec.id} item xs={12} sm={6} md={4}>
+                <div key={rec.id}>
                   <FilmItem
                     title={rec.title}
                     synopsis={rec.overview}
@@ -96,13 +103,13 @@ const App = () => {
                     date={rec.release_date}
                     note={rec.vote_average.toFixed(2)}
                   />
-                </Grid>
+                </div>
               );
             })}
 
             {recs2.map((rec) => {
               return (
-                <Grid key={rec.id} item xs={12} sm={6} md={4}>
+                <div key={rec.id}>
                   <FilmItem
                     title={rec.title}
                     synopsis={rec.overview}
@@ -110,10 +117,10 @@ const App = () => {
                     date={rec.release_date}
                     note={rec.vote_average.toFixed(2)}
                   />
-                </Grid>
+                </div>
               );
             })}
-          </Grid>
+          </Masonry>
         </div>
       </Container>
 
