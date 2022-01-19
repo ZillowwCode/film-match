@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Typography, Container, Divider, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import env from "react-dotenv";
+import axios from "axios";
 
 import Form from "./Components/Form";
 import Footer from "./Components/Footer";
@@ -22,40 +23,28 @@ const useStyles = makeStyles({
 
 const App = () => {
   const classes = useStyles();
-  const [films, setFilms] = useState([
-    {
-      title: "Les Éternels",
-      synopsis:
-        "Depuis l’aube de l’humanité, les Éternels, un groupe de héros venus des confins de l’univers, protègent la Terre. Lorsque les Déviants, des créatures monstrueuses que l’on croyait disparues depuis longtemps, réapparaissent mystérieusement, les Éternels sont à nouveau obligés de se réunir pour défendre l’humanité…",
-      note: 7.2,
-      imgUrl:
-        "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vV7TrS7PNRZJHCxNmiYN1SU7s1w.jpg",
-      date: "3 nov. 2021",
-    },
+  const [recs1, setRecs1] = useState([]);
+  const [recs2, setRecs2] = useState([]);
 
-    {
-      title: "Spider-Man: No Way Home",
-      synopsis:
-        "Après les évènements liés à l'affrontement avec Mystério, l'identité secrète de Spider-Man a été révélée. Il est poursuivi par le gouvernement américain, qui l'accuse du meurtre de Mystério, et est traqué par les médias. Cet évènement a également des conséquences terribles sur la vie de sa petite-amie M. J. et de son meilleur ami Ned. Désemparé, Peter Parker demande alors de l'aide au Docteur Strange. Ce dernier lance un sort pour que tout le monde oublie que Peter est Spider-Man. Mais les choses ne se passent pas comme prévu et cette action altère la stabilité de l'espace-temps. Cela ouvre le « Multivers », un concept terrifiant dont ils ne savent quasiment rien.",
-      note: 8.4,
-      imgUrl:
-        "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/3SyG7dq2q0ollxJ4pSsrqcfRmVj.jpg",
-      date: "15 déc. 2021",
-    },
+  const handleSubmit = async (film1, film2) => {
+    const res1 = await axios.get(`${env.API_URL}${env.API_KEY}&query=${film1}`);
+    const filmId1 = res1.data.results[0].id;
 
-    {
-      title: "S.O.S. Fantômes : L’Héritage",
-      synopsis:
-        "Une mère célibataire et ses deux enfants s'installent dans une petite ville et découvrent peu à peu leur relation avec les chasseurs de fantômes et l'héritage légué par leur grand-père.",
-      note: 7.7,
-      imgUrl:
-        "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/w1cmavTc0IwISr9ypI1XkBtxhVK.jpg",
-      date: "11 nov. 2021",
-    },
-  ]);
+    const res2 = await axios.get(`${env.API_URL}${env.API_KEY}&query=${film2}`);
+    const filmId2 = res2.data.results[0].id;
 
-  const handleFormSubmit = (film1, film2) => {
-    console.log(`${env.API_URL}/test`);
+    const resRec1 = await axios.get(
+      `https://api.themoviedb.org/3/movie/${filmId1}/recommendations?api_key=${env.API_KEY}&language=fr`
+    );
+    const recFilm1 = resRec1.data.results;
+
+    const resRec2 = await axios.get(
+      `https://api.themoviedb.org/3/movie/${filmId2}/recommendations?api_key=${env.API_KEY}&language=fr`
+    );
+    const recFilm2 = resRec2.data.results;
+
+    setRecs1(recFilm1);
+    setRecs2(recFilm2);
   };
 
   return (
@@ -88,7 +77,7 @@ const App = () => {
         </div>
 
         <div id="form">
-          <Form submit={handleFormSubmit} />
+          <Form submit={handleSubmit} />
         </div>
 
         <div id="filmsList">
@@ -97,15 +86,29 @@ const App = () => {
             container
             sx={{ marginTop: "50px", marginBottom: "220px" }}
           >
-            {films.map((film) => {
+            {recs1.map((rec) => {
               return (
-                <Grid key={film.title} item xs={12} sm={6} md={4}>
+                <Grid key={rec.id} item xs={12} sm={6} md={4}>
                   <FilmItem
-                    title={film.title}
-                    img={film.imgUrl}
-                    synopsis={film.synopsis}
-                    date={film.date}
-                    note={film.note}
+                    title={rec.title}
+                    synopsis={rec.overview}
+                    img={`https://image.tmdb.org/t/p/w500/${rec.poster_path}`}
+                    date={rec.release_date}
+                    note={rec.vote_average.toFixed(2)}
+                  />
+                </Grid>
+              );
+            })}
+
+            {recs2.map((rec) => {
+              return (
+                <Grid key={rec.id} item xs={12} sm={6} md={4}>
+                  <FilmItem
+                    title={rec.title}
+                    synopsis={rec.overview}
+                    img={`https://image.tmdb.org/t/p/w500/${rec.poster_path}`}
+                    date={rec.release_date}
+                    note={rec.vote_average.toFixed(2)}
                   />
                 </Grid>
               );

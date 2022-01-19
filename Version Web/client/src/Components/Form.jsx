@@ -21,13 +21,11 @@ const Form = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const vFilm1 = film1;
-    const vFilm2 = film2;
+
+    props.submit(film1, film2);
 
     setFilm1("");
     setFilm2("");
-
-    props.submit(vFilm1, vFilm2);
   };
 
   return (
@@ -59,7 +57,7 @@ const Form = (props) => {
               color: "#262730",
             }}
           >
-            Trouver LE film idéal
+            Trouver LES films idéaux
           </Button>
         </Grid>
       </Grid>
